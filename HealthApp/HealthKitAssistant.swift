@@ -19,12 +19,14 @@ class HealthKitAssistant {
         
         guard
             HKHealthStore.isHealthDataAvailable(),
-            let stepsCount = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            let stepsCount = HKObjectType.quantityType(forIdentifier: .stepCount),
+            let height = HKObjectType.quantityType(forIdentifier: .height),
+            let weight = HKObjectType.quantityType(forIdentifier: .bodyMass) else {
                 completion(false)
                 return
         }
         
-        store.requestAuthorization(toShare: [stepsCount], read: [stepsCount]) { (success, error) in
+        store.requestAuthorization(toShare: [height], read: [stepsCount, height, weight]) { (success, error) in
             
             guard error == nil else {
                 print("Error- \(error?.localizedDescription ?? "")")
@@ -86,5 +88,54 @@ class HealthKitAssistant {
             completion(steps, stepsData.reversed())
         }
         HKHealthStore().execute(stepQuery)
+    }
+}
+
+
+extension HealthKitAssistant {
+    
+    enum QuantityType {
+        case height, weight
+    }
+    
+    func read(for type: QuantityType, completion: @escaping (_ value: String?) -> Void) {
+        let identifier: HKQuantityTypeIdentifier = type == .height ? .height : .bodyMass
+        
+        guard let customType = HKSampleType
+                               .quantityType(forIdentifier: identifier) else {
+                                return
+        }
+        let query = HKSampleQuery(sampleType: customType, predicate: nil, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]) { (query, results, error) in
+            if let result = results?.first as? HKQuantitySample{
+                if type == .weight {
+                    let value = Int((result.quantity.doubleValue(for: HKUnit.gram()))/1000)
+                    completion(String(value))
+                } else if type == .height {
+                    let value = Int((result.quantity.doubleValue(for: HKUnit.inch())))
+                    completion(String(value))
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        HKHealthStore().execute(query)
+    }
+    
+    func saveHeight(for value: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        if let type = HKSampleType
+                      .quantityType(forIdentifier: HKQuantityTypeIdentifier.height),
+            let val = Double(value) {
+            
+            let date = Date()
+            let quantity = HKQuantity(unit: HKUnit.inch(), doubleValue: val)
+            let sample = HKQuantitySample(type: type, quantity: quantity, start: date, end: date)
+            HKHealthStore().save(sample, withCompletion: { (success, error) in
+                if success {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            })
+        }
     }
 }

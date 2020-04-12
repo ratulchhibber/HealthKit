@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E761DB54244328E200BA1529 /* AttributeUpdationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E761DB53244328E200BA1529 /* AttributeUpdationViewController.swift */; };
 		E7E5C183242138F9003B60BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5C182242138F9003B60BE /* AppDelegate.swift */; };
 		E7E5C185242138F9003B60BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E5C184242138F9003B60BE /* SceneDelegate.swift */; };
 		E7E5C18A242138F9003B60BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7E5C188242138F9003B60BE /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E761DB53244328E200BA1529 /* AttributeUpdationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeUpdationViewController.swift; sourceTree = "<group>"; };
 		E7E5C17F242138F9003B60BE /* HealthApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E5C182242138F9003B60BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E5C184242138F9003B60BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 				E7E5C190242138FD003B60BE /* Info.plist */,
 				E7E5C19A24213A2E003B60BE /* HealthKitAssistant.swift */,
 				E7E5C19C24213DD5003B60BE /* StepsTableViewController.swift */,
+				E761DB53244328E200BA1529 /* AttributeUpdationViewController.swift */,
 			);
 			path = HealthApp;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E761DB54244328E200BA1529 /* AttributeUpdationViewController.swift in Sources */,
 				E7E5C183242138F9003B60BE /* AppDelegate.swift in Sources */,
 				E7E5C19D24213DD5003B60BE /* StepsTableViewController.swift in Sources */,
 				E7E5C185242138F9003B60BE /* SceneDelegate.swift in Sources */,
